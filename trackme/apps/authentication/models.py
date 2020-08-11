@@ -20,11 +20,15 @@ class UserManager(BaseUserManager, BaseManager):
         """
         username = kwargs.get("username")
         email = kwargs.get("email")
+        phone_number = kwargs.get("phone_number")
         password = kwargs.get("password")
 
         check_email = self.model.objects.filter(email=email).first()
         check_username = \
             self.model.objects.filter(username=username).first()
+        check_phone_number = self.model.objects.filter(
+            phone_number=phone_number,
+        ).first()
         if check_email:
             raise ValueError(
                 "User with email {} already exists".format(email)
@@ -34,10 +38,16 @@ class UserManager(BaseUserManager, BaseManager):
             raise ValueError(
                 "User with username {} already exists".format(username)
             )
+
+        if phone_number and check_phone_number:
+            raise ValueError(
+                "User with phone number {} already exists".format(phone_number)
+            )
         
         user = self.model(
             username=username,
-            email=self.normalize_email(email)
+            email=self.normalize_email(email),
+            phone_number=phone_number,
         )
         
         user.set_password(password)
@@ -67,6 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     username =  models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(max_length=255, unique=True, null=True)
+    phone_number = models.CharField(max_length=100, null=True, unique=True)
     password = models.CharField(max_length=100)
     image = models.CharField(
         max_length=150, null=True, blank=True,
