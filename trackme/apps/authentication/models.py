@@ -69,6 +69,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     """
     User model
     """
+    ALLOWED = 'AL'
+    DISALLOWED = 'DIS'
+    AGREEMENT_CHOICES = [
+        (ALLOWED, 'Allowed'),
+        (DISALLOWED, 'Disallowed'),
+    ]
     id = models.CharField(
         max_length=ID_LENGTH,
         primary_key=True,
@@ -86,6 +92,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
+    agreement = models.CharField(
+        max_length=3, 
+        choices=AGREEMENT_CHOICES,
+        default=DISALLOWED)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
     deleted_at = models.DateTimeField(blank=True, null=True)

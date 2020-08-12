@@ -87,5 +87,15 @@ class Validators:
             "password": self.is_valid_password(password),
         }
 
+    def is_valid_agreement(self, value):
+        if value.lower() == "allowed" or value == "AL":
+            return "AL"
+        if value.lower() == "disallowed" or value == "DIS":
+            return "DIS"
+        if (value.lower() != "Allowed" or value != "AL" or
+            value.lower() != "Disallowed" or value != "DIS"
+            ):
+            raise GraphQLError("Agreement value sent is not valid")
+
 
 validator = Validators()
