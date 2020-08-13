@@ -1,5 +1,6 @@
 import re
 from graphql import GraphQLError
+from django.utils.translation import gettext as _
 
 
 class Validators:
@@ -96,6 +97,28 @@ class Validators:
             value.lower() != "Disallowed" or value != "DIS"
             ):
             raise GraphQLError("Agreement value sent is not valid")
+
+    def check_lon(self, lon):
+        if (lon is None) or (not (-180 <= self.lon <= 180)):
+            raise GraphQLError(_(
+                'Invalid longitude, it must be between -180 and 180'))
+
+        return self.lon
+
+    def check_lat(self, lat):
+        self.lat = lat
+        if (lat is None) or (not (-90 <= self.lat <= 90)):
+            raise GraphQLError(_(
+                'Invalid latitude, it must be between -90 and 90'))
+        return self.lat
+
+    def check_geometry_point(self, lon, lat):
+        self.lat = lat
+        self.lon = lon
+        return {
+            'lon': self.check_lon(self.lon),
+            'lat': self.check_lat(self.lat)
+        }
 
 
 validator = Validators()

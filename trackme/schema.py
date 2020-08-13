@@ -4,6 +4,8 @@ from graphene_django.debug import DjangoDebug
 
 from trackme.apps.authentication.schema.mutations.auth_mutations import \
     Mutation as AuthMutations
+from trackme.apps.tracking.schema.mutations.tracking_mutation import \
+    Mutation as TrackMutations
 
 
 class Query(graphene.ObjectType):
@@ -11,7 +13,9 @@ class Query(graphene.ObjectType):
     pass
 
 
-class Mutation(AuthMutations):
+class Mutation(
+    AuthMutations,
+    TrackMutations):
     verify_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
 
