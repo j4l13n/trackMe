@@ -6,9 +6,13 @@ from trackme.apps.authentication.schema.mutations.auth_mutations import \
     Mutation as AuthMutations
 from trackme.apps.tracking.schema.mutations.tracking_mutation import \
     Mutation as TrackMutations
+from trackme.apps.tracking.schema.queries.tracking_queries import \
+    Query as TrackQueries
 
 
-class Query(graphene.ObjectType):
+class Query(
+    graphene.ObjectType,
+    TrackQueries):
     debug = graphene.Field(DjangoDebug, name='_debug')
     pass
 

@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', str(uuid.uuid4()))
+SECRET_KEY = os.getenv('SECRET_KEY', 'ajGlbrD5la4985aPNkQC6YhMFOkYTxI1-0StOYJWI7M')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', True)
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'graphene_django',
     'six',
+    'corsheaders',
     # apps
     'trackme.apps.authentication',
     'trackme.apps.tracking',
@@ -54,6 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'trackme.urls'
@@ -151,3 +154,5 @@ STATIC_URL = '/static/'
 
 # Create environment variables
 AUTH_USER_MODEL = 'authentication.User'
+
+CORS_ORIGIN_ALLOW_ALL = True

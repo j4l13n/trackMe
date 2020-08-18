@@ -130,3 +130,8 @@ dmypy.json
 
 # other files
 .editorconfig
+
+# folders
+static/
+staticfiles/
+.vscode/
