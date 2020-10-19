@@ -1,5 +1,6 @@
 aniso8601==7.0.0
 asgiref==3.2.10
+channels==2.4.0
 Django==3.1
 django-cors-headers==3.4.0
 django-graphql-jwt==0.3.1
