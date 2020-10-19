@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'graphene_django',
+    'channels',
     'six',
     'corsheaders',
     # apps
@@ -78,6 +79,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'trackme.wsgi.application'
+
+ASGI_APPLICATION = "trackme.routing.application"
 
 
 # Database
